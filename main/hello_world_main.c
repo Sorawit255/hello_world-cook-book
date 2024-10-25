@@ -13,10 +13,16 @@
 #include "esp_flash.h"
 #include "esp_system.h"
 
+void test(void *pvParameter) {
+    while (1) {
+        printf("Hello World\n");
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+
 void app_main(void)
 {
-    printf("Hello world!\n");
-
+    xTaskCreate(&test, "test", 2048, NULL, 5, NULL);
     /* Print chip information */
     esp_chip_info_t chip_info;
     uint32_t flash_size;
